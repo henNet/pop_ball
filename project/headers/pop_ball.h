@@ -28,7 +28,7 @@ int game_level;
 int level_up;
 int pontuacao;
 int game_over;
-int vel_incremento;
+int vel_incremento;		/* velocidade da bola caindo */
 
 /* Funções do Jogo */
 void init_bolas(int faixa_x, int faixa_y);

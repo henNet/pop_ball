@@ -64,9 +64,9 @@ int mouse_dentro_bola(int centro_x, int centro_y, int mouse_pos_x, int mouse_pos
 			     (mouse_pos_y - centro_y) * (mouse_pos_y - centro_y) );
     
     if(distancia < RAIO_BOLA)
-	return 1;		/* Mouse dentro da Bola */
+		return 1;		/* Mouse dentro da Bola */
     else
-	return 0;		/* Mouse não está dentro da Bola */
+		return 0;		/* Mouse não está dentro da Bola */
 }
 
 /*****************************************************************************************/
@@ -77,7 +77,11 @@ void desenhar_bolas_caindo(int altura_janela)
 	for(i = 0; i < game_level; i++)
 	{
 	    /* Desenha um circulo */
-	    jhi_draw_fill_circle(bolas_caindo[i].pontos, RAIO_BOLA, bolas_caindo[i].id_cor_bolas);
+		jhi_draw_fill_circle(bolas_caindo[i].pontos, RAIO_BOLA, bolas_caindo[i].id_cor_bolas);
+
+		/* Desenhar a borda do circulo. Duas chamadas para a borda ficar mais forte */
+		jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA, BLACK);
+		jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA + 1, BLACK);
 	    
 	    /* Anima o circulo até ele encostar na parte debaixo da tela */
 	    if(bolas_caindo[i].pontos.y < (altura_janela + 2 * RAIO_BOLA)) {

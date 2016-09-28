@@ -3,6 +3,8 @@
 #define LARGURA 800
 #define ALTURA 600
 
+#define FONT_PATH "/home/neto/Documentos/Grupo_Jogos/pop_ball/fonts/emulogic.ttf"
+
 int main()
 {	
     jhi_initialize_window(LARGURA, ALTURA, 32, WHITE);
@@ -19,8 +21,8 @@ int main()
 	JHI_Text texto_pontos;
 
 	/* Carrega a fonte e inicializa a variavel texto */
-	jhi_load_font(&fonte_game_over, "/home/henrique/Documentos/pop_ball/fonts/emulogic.ttf", 70);
-	jhi_load_font(&fonte_pontos, "/home/henrique/Documentos/pop_ball/fonts/emulogic.ttf", 30);
+	jhi_load_font(&fonte_game_over, FONT_PATH, 70);
+	jhi_load_font(&fonte_pontos, FONT_PATH, 30);
 	jhi_init_text(&texto_pontos);
 
     /* Seta a quantidade de frames por segundo na tela */
