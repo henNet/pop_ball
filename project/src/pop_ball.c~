@@ -1,0 +1,38 @@
+#include "pop_ball.h" 
+
+void init_bolas(int faixa_x, int faixa_y)
+{
+    int i = 0;
+    
+    for(; i < game_level; i++)
+    {
+	bolas_caindo.pontos[i].x = rand() % faixa_x;
+	bolas_caindo.pontos[i].y = (-1)*(rand() % 100);
+    }
+}
+
+void set_game_level(int level)
+{
+    game_level = level;
+}
+
+void set_random_seed()
+{
+    srand((unsigned int)time(NULL));
+}
+
+int gerar_random_number(int faixa)
+{
+    return (rand() % faixa);
+}
+
+int mouse_dentro_bola(int centro_x, int centro_y, int mouse_pos_x, int mouse_pos_y)
+{
+    double distancia = sqrt( (mouse_pos_x - centro_x) * (mouse_pos_x - centro_x) + 
+			     (mouse_pos_y - centro_y) * (mouse_pos_y - centro_y) );
+    
+    if(distancia < RAIO_BOLA)
+	return 1;		/* Mouse dentro da Bola */
+    else
+	return 0;		/* Mouse não está dentro da Bola */
+}
