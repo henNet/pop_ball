@@ -1,0 +1,7 @@
+bin/*
+.cproject
+.project
+project/bin/*
+Debug/
+**/*.o
+*~

@@ -1,12 +1,16 @@
-#include "pop_ball.h" 
+#include "pop_ball.h"
+
+/*****************************************************************************************/
+
+
 
 /*****************************************************************************************/
 
 void init_bolas(int faixa_x, int faixa_y)
 {
-    int i = 0;
+    int i;
     
-    for(; i < game_level; i++)
+    for(i = 0; i < game_level; i++)
     {
     	bolas_caindo[i].id_cor_bolas = rand() % 5; /* 7 é a quantidade de cores da lib */
 		bolas_caindo[i].pontos.x = rand() % faixa_x;
@@ -116,9 +120,14 @@ void verificar_eventos_mouse(JHI_MouseSt *mouse, int largura_janela)
 			    	bolas_caindo[k].id_cor_bolas = rand() % 5; /* 5 é a quantidade de cores da lib */
 					bolas_caindo[k].pontos.x = gerar_random_number(largura_janela);
 					bolas_caindo[k].pontos.y = (-1)*gerar_random_number(100);
-
 					incrementa_pontuacao(PONTOS);
 					printf("Pontos: %d\n", get_pontuacao());
+					jhi_play_effect(&explosion, 1);
+
+					if (get_pontuacao() == 200) {
+						jhi_stop_music();
+						jhi_play_music(&psi, -1);
+					}
 			    }
 		    }
 		}
@@ -148,6 +157,7 @@ void verificar_game_over(int altura_janela)
 	{
 		if((bolas_caindo[i].pontos.y + RAIO_BOLA) > altura_janela) {
 			game_over = 1;
+			jhi_stop_music();
 		}
 	}
 }

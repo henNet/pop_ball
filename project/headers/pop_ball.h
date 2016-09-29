@@ -13,6 +13,8 @@
 #include "jhi_font.h"   /* Esse arquivo é header da estrutura Font */
 #include "jhi_text.h"   /* Esse arquivo é header da estrutura Text */
 #include "jhi_shapes.h"
+#include "jhi_image.h"
+#include "jhi_sound.h"
 
 #define RAIO_BOLA 50
 #define PONTOS 10
@@ -29,6 +31,9 @@ int level_up;
 int pontuacao;
 int game_over;
 int vel_incremento;		/* velocidade da bola caindo */
+JHI_Effect explosion;
+JHI_Music psi, normal;
+
 
 /* Funções do Jogo */
 void init_bolas(int faixa_x, int faixa_y);
