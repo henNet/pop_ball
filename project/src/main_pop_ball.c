@@ -3,7 +3,7 @@
 #define LARGURA 800
 #define ALTURA 600
 
-#define FONT_PATH "/home/neto/Documentos/Grupo_Jogos/pop_ball/fonts/emulogic.ttf"
+#define FONT_PATH "../../fonts/emulogic.ttf"
 
 int main()
 {	
