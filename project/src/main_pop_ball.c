@@ -1,4 +1,5 @@
 #include "pop_ball.h"
+#include "button.h"
 
 #define LARGURA 800
 #define ALTURA 600
@@ -57,6 +58,49 @@ void game_intro_screen()
 	jhi_free_image(&logo);
 	jhi_free_text(&text);
 	jhi_free_font(&font);
+}
+
+int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
+{
+	Button vet_buttons[2];
+	int pos=-1,j;
+	JHI_Font font;
+
+	jhi_load_font(&font, FONT_PATH, 20);
+
+	init_button(&vet_buttons[0], &font, "Iniciar Jogo", BUTTON_TYPE_1);
+	init_button(&vet_buttons[1], &font, "Sair do Jogo", BUTTON_TYPE_1);
+
+	set_button_size(&vet_buttons[0], 250, 50);
+	set_button_size(&vet_buttons[1], 250, 50);
+
+
+    while (jhi_get_close_window() != JHI_CLOSE && pos == -1)
+    {
+    	jhi_update();
+    	jhi_clean();
+    	jhi_draw_image(background, background->pos);
+    	draw_button(&vet_buttons[0], jhi_get_point(jhi_get_central_pos(LARGURA, ALTURA, 250, 50).x, 400));
+    	draw_button(&vet_buttons[1], jhi_get_point(jhi_get_central_pos(LARGURA, ALTURA, 250, 50).x, 500));
+
+        for (j = 0; j < jhi_get_number_of_events(); j++)
+        {
+    		/* Pega o status do mouse no evento j */
+    		*mouse = jhi_get_mouse_status(j);
+    			//pos = 0 indica inciar jogo
+    			//pos = 1 indica sair do jogo
+    			//pos = -1 nenhum botão clicado, o loop continua
+    		pos = check_buttons(*mouse, vet_buttons, 2);
+        }
+    }
+
+    jhi_free_font(&font);
+    free_button(&vet_buttons[0]);
+    free_button(&vet_buttons[1]);
+
+    return pos;
+
+
 }
 
 void gameplay_screen(JHI_Text *texto_pontos, JHI_MouseSt *mouse,
@@ -148,11 +192,15 @@ int main()
     jhi_load_music(&normal, "../audio/blast_off.mp3");
 
     /* Desenha a introducao do jogo. Logo da lib é mostrada */
-    game_intro_screen();
+    //game_intro_screen();
 
-    /* Loop principal do jogo é iniciado */
-    jhi_play_music(&normal, -1);
-    gameplay_screen(&texto_pontos, &mouse, &fonte_game_over, &fonte_pontos, &background);
+    int exit = game_menu_screen(&background, &mouse);
+
+    if (!exit) {
+    	/* Loop principal do jogo é iniciado */
+    	jhi_play_music(&normal, -1);
+    	gameplay_screen(&texto_pontos, &mouse, &fonte_game_over, &fonte_pontos, &background);
+    }
 	
     /* desalocar as estruturas carregadas */
 	jhi_free_text(&texto_pontos);
