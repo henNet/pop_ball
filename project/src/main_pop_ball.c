@@ -206,7 +206,7 @@ int main()
 	jhi_load_font(&fonte_pontos, FONT_PATH, 30);
 	jhi_init_text(&texto_pontos);
 	jhi_load_image(&background, "../images/Background.png");
-	jhi_load_image_with_transparent_color(&cara_bola, "../images/ballon_face.jpg", WHITE);
+	jhi_load_image_with_transparent_color(&cara_bola, "../images/bf.png", BLACK);
 	//jhi_load_image_with_transparent_color(&cara_bola, "../images/smile.png", BLACK);
 	background.pos.x = 0;
 	background.pos.y = 0;
