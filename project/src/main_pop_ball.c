@@ -61,13 +61,16 @@ void game_intro_screen()
 }
 
 void gameplay_screen(JHI_Text *texto_pontos, JHI_MouseSt *mouse,
-		JHI_Font *fonte_game_over, JHI_Font *fonte_pontos)
+		JHI_Font *fonte_game_over, JHI_Font *fonte_pontos, JHI_Image *background)
 {
     while (jhi_get_close_window() != JHI_CLOSE)
     {
 		jhi_timer_start();
 		jhi_update();
 		jhi_clean();
+
+		/* Desenha a imagem de plano de fundo */
+		jhi_draw_image(background, background->pos);
 
 		if(game_over)
 		{
@@ -115,10 +118,15 @@ int main()
 	/* Estrutura de texto */
 	JHI_Text texto_pontos;
 
+	JHI_Image background;
+
 	/* Carrega a fonte e inicializa a variavel texto */
 	jhi_load_font(&fonte_game_over, FONT_PATH, 70);
 	jhi_load_font(&fonte_pontos, FONT_PATH, 30);
 	jhi_init_text(&texto_pontos);
+	jhi_load_image(&background, "../images/Background.png");
+	background.pos.x = 0;
+	background.pos.y = 0;
 
     /* Seta a quantidade de frames por segundo na tela */
     jhi_set_fps_timer(32);
@@ -135,10 +143,13 @@ int main()
     jhi_load_music(&psi, "../audio/psicose.mp3");
     jhi_load_music(&normal, "../audio/blast_off.mp3");
 
+    /* Desenha a introducao do jogo. Logo da lib é mostrada */
     game_intro_screen();
 
+    /* Loop principal do jogo é iniciado */
     jhi_play_music(&normal, -1);
-    gameplay_screen(&texto_pontos, &mouse, &fonte_game_over, &fonte_pontos);
+    jhi_resize_image(&background, LARGURA, ALTURA);
+    gameplay_screen(&texto_pontos, &mouse, &fonte_game_over, &fonte_pontos, &background);
 	
     /* desalocar as estruturas carregadas */
 	jhi_free_text(&texto_pontos);
