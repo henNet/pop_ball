@@ -5,7 +5,6 @@
 
 #define FONT_PATH "../../fonts/emulogic.ttf"
 
-
 void game_intro_screen()
 {
 	JHI_Image logo;
@@ -118,6 +117,7 @@ int main()
 	/* Estrutura de texto */
 	JHI_Text texto_pontos;
 
+	/* Estrutura de Imagem */
 	JHI_Image background;
 
 	/* Carrega a fonte e inicializa a variavel texto */

@@ -122,7 +122,7 @@ void verificar_eventos_mouse(JHI_MouseSt *mouse, int largura_janela)
 					bolas_caindo[k].pontos.y = (-1)*gerar_random_number(100);
 					incrementa_pontuacao(PONTOS);
 					printf("Pontos: %d\n", get_pontuacao());
-					jhi_play_effect(&explosion, 1);
+					jhi_play_effect(&explosion, 0);
 
 					if (get_pontuacao() == 200) {
 						jhi_stop_music();
@@ -153,11 +153,14 @@ void verificar_level_up()
 void verificar_game_over(int altura_janela)
 {
 	int i;
+
 	for(i = 0; i < game_level; i++)
 	{
 		if((bolas_caindo[i].pontos.y + RAIO_BOLA) > altura_janela) {
 			game_over = 1;
 			jhi_stop_music();
+			jhi_play_music(&normal, -1);
+			break;
 		}
 	}
 }
