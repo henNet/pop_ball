@@ -63,13 +63,39 @@ void game_intro_screen()
 int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
 {
 	Button vet_buttons[2];
+	JHI_Image menu_img, menu_img2;
 	int pos=-1,j;
-	JHI_Font font;
+	JHI_Font font_text, font_button;
+	JHI_Text pop, ball;
 
-	jhi_load_font(&font, FONT_PATH, 20);
+	jhi_load_font(&font_text, "../../fonts/Chewy.ttf", 50);
+	jhi_load_font(&font_button, FONT_PATH, 20);
+	jhi_load_image_with_transparent_color(&menu_img, "../images/balao.png", BLACK);
+	jhi_load_image_with_transparent_color(&menu_img2, "../images/balao.png", BLACK);
 
-	init_button(&vet_buttons[0], &font, "Iniciar Jogo", BUTTON_TYPE_1);
-	init_button(&vet_buttons[1], &font, "Sair do Jogo", BUTTON_TYPE_1);
+	jhi_resize_image(&menu_img, 250, 200);
+	jhi_resize_image(&menu_img2, 250, 200);
+
+	jhi_init_text(&pop);
+	jhi_init_text(&ball);
+
+	pop.pos.x = 200;
+	pop.pos.y = 100;
+
+	jhi_set_text(&font_text, &pop, RED, "POP");
+	jhi_set_text(&font_text, &ball, BLUE, "BALL");
+
+	ball.pos.x = 420;
+	ball.pos.y = 250;
+
+	menu_img.pos.x = 400;
+	menu_img.pos.y = 30;
+
+	menu_img2.pos.x = 100;
+	menu_img2.pos.y = 200;
+
+	init_button(&vet_buttons[0], &font_button, "Iniciar Jogo", BUTTON_TYPE_1);
+	init_button(&vet_buttons[1], &font_button, "Sair do Jogo", BUTTON_TYPE_1);
 
 	set_button_size(&vet_buttons[0], 250, 50);
 	set_button_size(&vet_buttons[1], 250, 50);
@@ -83,6 +109,12 @@ int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
     	draw_button(&vet_buttons[0], jhi_get_point(jhi_get_central_pos(LARGURA, ALTURA, 250, 50).x, 400));
     	draw_button(&vet_buttons[1], jhi_get_point(jhi_get_central_pos(LARGURA, ALTURA, 250, 50).x, 500));
 
+    	jhi_draw_text(&pop, pop.pos);
+    	jhi_draw_text(&ball, ball.pos);
+
+    	jhi_draw_image(&menu_img, menu_img.pos);
+    	jhi_draw_image(&menu_img2, menu_img2.pos);
+
         for (j = 0; j < jhi_get_number_of_events(); j++)
         {
     		/* Pega o status do mouse no evento j */
@@ -94,7 +126,12 @@ int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
         }
     }
 
-    jhi_free_font(&font);
+    jhi_free_font(&font_text);
+    jhi_free_font(&font_button);
+    jhi_free_text(&pop);
+    jhi_free_text(&ball);
+    jhi_free_image(&menu_img);
+    jhi_free_image(&menu_img2);
     free_button(&vet_buttons[0]);
     free_button(&vet_buttons[1]);
 
@@ -192,13 +229,13 @@ int main()
     jhi_load_music(&normal, "../audio/blast_off.mp3");
 
     /* Desenha a introducao do jogo. Logo da lib é mostrada */
-    //game_intro_screen();
+    game_intro_screen();
+    jhi_play_music(&normal, -1);
 
     int exit = game_menu_screen(&background, &mouse);
 
     if (!exit) {
     	/* Loop principal do jogo é iniciado */
-    	jhi_play_music(&normal, -1);
     	gameplay_screen(&texto_pontos, &mouse, &fonte_game_over, &fonte_pontos, &background);
     }
 	
