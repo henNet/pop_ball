@@ -125,8 +125,12 @@ int main()
 	jhi_load_font(&fonte_pontos, FONT_PATH, 30);
 	jhi_init_text(&texto_pontos);
 	jhi_load_image(&background, "../images/Background.png");
+	jhi_load_image_with_transparent_color(&cara_bola, "../images/ballon_face.jpg", WHITE);
+	//jhi_load_image_with_transparent_color(&cara_bola, "../images/smile.png", BLACK);
 	background.pos.x = 0;
 	background.pos.y = 0;
+	jhi_resize_image(&background, LARGURA, ALTURA);
+	jhi_resize_image(&cara_bola, 2*RAIO_BOLA, 2*RAIO_BOLA);
 
     /* Seta a quantidade de frames por segundo na tela */
     jhi_set_fps_timer(32);
@@ -148,7 +152,6 @@ int main()
 
     /* Loop principal do jogo é iniciado */
     jhi_play_music(&normal, -1);
-    jhi_resize_image(&background, LARGURA, ALTURA);
     gameplay_screen(&texto_pontos, &mouse, &fonte_game_over, &fonte_pontos, &background);
 	
     /* desalocar as estruturas carregadas */

@@ -33,7 +33,7 @@ int game_over;
 int vel_incremento;		/* velocidade da bola caindo */
 JHI_Effect explosion;
 JHI_Music psi, normal;
-
+JHI_Image cara_bola;
 
 /* Funções do Jogo */
 void init_bolas(int faixa_x, int faixa_y);

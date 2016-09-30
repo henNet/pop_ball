@@ -2,10 +2,6 @@
 
 /*****************************************************************************************/
 
-
-
-/*****************************************************************************************/
-
 void init_bolas(int faixa_x, int faixa_y)
 {
     int i;
@@ -81,11 +77,15 @@ void desenhar_bolas_caindo(int altura_janela)
 	for(i = 0; i < game_level; i++)
 	{
 	    /* Desenha um circulo */
-		jhi_draw_fill_circle(bolas_caindo[i].pontos, RAIO_BOLA, bolas_caindo[i].id_cor_bolas);
+		//jhi_draw_fill_circle(bolas_caindo[i].pontos, RAIO_BOLA, bolas_caindo[i].id_cor_bolas);
 
 		/* Desenhar a borda do circulo. Duas chamadas para a borda ficar mais forte */
-		jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA, BLACK);
-		jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA + 1, BLACK);
+		//jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA, BLACK);
+		//jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA + 1, BLACK);
+
+		cara_bola.pos.x = bolas_caindo[i].pontos.x - RAIO_BOLA;
+		cara_bola.pos.y = bolas_caindo[i].pontos.y - RAIO_BOLA;
+		jhi_draw_image(&cara_bola, cara_bola.pos);
 	    
 	    /* Anima o circulo até ele encostar na parte debaixo da tela */
 	    if(bolas_caindo[i].pontos.y < (altura_janela + 2 * RAIO_BOLA)) {
