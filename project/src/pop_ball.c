@@ -1,5 +1,7 @@
 #include "pop_ball.h"
 
+static int INC_PONTOS[] = {3, 4, 5, 6, 7, 8, 9};
+
 /*****************************************************************************************/
 
 void init_bolas(int faixa_x, int faixa_y)
@@ -8,7 +10,7 @@ void init_bolas(int faixa_x, int faixa_y)
     
     for(i = 0; i < game_level; i++)
     {
-    	bolas_caindo[i].id_cor_bolas = rand() % 5; /* 7 é a quantidade de cores da lib */
+    	bolas_caindo[i].id_cor_bolas = rand() % 7; /* 7 é a quantidade de cores da lib */
 		bolas_caindo[i].pontos.x = rand() % faixa_x;
 		bolas_caindo[i].pontos.y = (-1)*(rand() % 100);
     }
@@ -83,9 +85,9 @@ void desenhar_bolas_caindo(int altura_janela)
 		//jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA, BLACK);
 		//jhi_draw_circle(bolas_caindo[i].pontos, RAIO_BOLA + 1, BLACK);
 
-		cara_bola.pos.x = bolas_caindo[i].pontos.x - RAIO_BOLA;
-		cara_bola.pos.y = bolas_caindo[i].pontos.y - RAIO_BOLA;
-		jhi_draw_image(&cara_bola, cara_bola.pos);
+		cara_bola[bolas_caindo[i].id_cor_bolas].pos.x = bolas_caindo[i].pontos.x - RAIO_BOLA;
+		cara_bola[bolas_caindo[i].id_cor_bolas].pos.y = bolas_caindo[i].pontos.y - RAIO_BOLA;
+		jhi_draw_image(&cara_bola[bolas_caindo[i].id_cor_bolas], cara_bola[bolas_caindo[i].id_cor_bolas].pos);
 	    
 	    /* Anima o circulo até ele encostar na parte debaixo da tela */
 	    if(bolas_caindo[i].pontos.y < (altura_janela + 2 * RAIO_BOLA)) {
@@ -120,7 +122,7 @@ void verificar_eventos_mouse(JHI_MouseSt *mouse, int largura_janela)
 			    	bolas_caindo[k].id_cor_bolas = rand() % 5; /* 5 é a quantidade de cores da lib */
 					bolas_caindo[k].pontos.x = gerar_random_number(largura_janela);
 					bolas_caindo[k].pontos.y = (-1)*gerar_random_number(100);
-					incrementa_pontuacao(PONTOS);
+					incrementa_pontuacao(INC_PONTOS[bolas_caindo[k].id_cor_bolas]);
 					printf("Pontos: %d\n", get_pontuacao());
 					jhi_play_effect(&explosion, 0);
 

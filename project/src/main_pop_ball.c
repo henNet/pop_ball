@@ -184,7 +184,8 @@ void gameplay_screen(JHI_Text *texto_pontos, JHI_MouseSt *mouse,
 }
 
 int main()
-{	
+{
+	int i;	
     jhi_initialize_window(LARGURA, ALTURA, 32, WHITE);
     jhi_choice_window_name("Pop-Ball");
     
@@ -206,12 +207,23 @@ int main()
 	jhi_load_font(&fonte_pontos, FONT_PATH, 30);
 	jhi_init_text(&texto_pontos);
 	jhi_load_image(&background, "../images/Background.png");
-	jhi_load_image_with_transparent_color(&cara_bola, "../images/bf.png", BLACK);
+
+	jhi_load_image_with_transparent_color(&cara_bola[0], "../images/b1.png", BLACK);
+	jhi_load_image_with_transparent_color(&cara_bola[1], "../images/b2.png", BLACK);
+	jhi_load_image_with_transparent_color(&cara_bola[2], "../images/b3.png", BLACK);
+	jhi_load_image_with_transparent_color(&cara_bola[3], "../images/b4.png", BLACK);
+	jhi_load_image_with_transparent_color(&cara_bola[4], "../images/b5.png", BLACK);
+	jhi_load_image_with_transparent_color(&cara_bola[5], "../images/b6.png", BLACK);
+	jhi_load_image_with_transparent_color(&cara_bola[6], "../images/b7.png", BLACK);
 	//jhi_load_image_with_transparent_color(&cara_bola, "../images/smile.png", BLACK);
 	background.pos.x = 0;
 	background.pos.y = 0;
 	jhi_resize_image(&background, LARGURA, ALTURA);
-	jhi_resize_image(&cara_bola, 2*RAIO_BOLA, 2*RAIO_BOLA);
+
+	for (i = 0; i < 7; i++)
+	{
+		jhi_resize_image(&cara_bola[i], 2*RAIO_BOLA, 2*RAIO_BOLA);
+	}
 
     /* Seta a quantidade de frames por segundo na tela */
     jhi_set_fps_timer(32);

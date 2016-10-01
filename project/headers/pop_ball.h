@@ -20,6 +20,9 @@
 #define PONTOS 10
 #define MAX_GAME_LEVEL 20
 
+
+
+
 struct Bolas{
 	int id_cor_bolas;
     JHI_Point2d pontos;
@@ -33,7 +36,8 @@ int game_over;
 int vel_incremento;		/* velocidade da bola caindo */
 JHI_Effect explosion;
 JHI_Music psi, normal;
-JHI_Image cara_bola;
+JHI_Image cara_bola[7];
+
 
 /* Funções do Jogo */
 void init_bolas(int faixa_x, int faixa_y);
