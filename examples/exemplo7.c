@@ -27,7 +27,8 @@ int main()
 	// o botão direito dará um stop ou pause na música, dependendo da variavel mode
 	JHI_Music music;
 
-	int mode = PAUSE;
+	int mode = STOP;
+	int firstTime = 1;
 
 	//Essa função irá inicializar a janela e todos os outros módulos incluindo som, fonte.
 	jhi_initialize_window(800, 600, 32, BLACK);
@@ -67,7 +68,15 @@ int main()
 			{
 				//executa a música, -1 indica para música tocar em loop
 				// se for passando um numero positivo indica número de repetições
-				jhi_play_music(&music, -1);
+				if (mode == PAUSE || firstTime) 
+				{
+					jhi_play_music(&music, -1);
+					firstTime = 0;
+				}
+				else if (mode == STOP) {
+					jhi_replay_music(&music, -1);
+				}
+
 			}
 			//senão se foi clicado botão direito
 			else if (mouse.mouse_event == ON_CLICK_RIGHT)

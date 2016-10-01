@@ -5,6 +5,7 @@ void jhi_load_music(JHI_Music *music, const char *filename)
 	//Load the music
 	music->mix_music = NULL;
 	music->mix_music = Mix_LoadMUS(filename);
+	strcpy(music->filename, filename);
 
 	//If there was a problem loading the music
 	if(music->mix_music == NULL)
@@ -27,6 +28,24 @@ void jhi_play_music(JHI_Music *music, int loop)
 			printf("Error while playing music.\n");
 		}
 	}
+}
+
+void jhi_replay_music(JHI_Music *music, int loop)
+{
+	if (Mix_PausedMusic() == 1)
+	{
+		Mix_ResumeMusic();
+	}
+
+	if (Mix_PlayingMusic() != 0) 
+	{
+		jhi_stop_music();
+	}
+
+	jhi_free_music(music);
+	jhi_load_music(music, music->filename);
+
+	jhi_play_music(music, loop);
 }
 
 void jhi_stop_music()

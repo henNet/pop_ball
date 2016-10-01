@@ -1,6 +1,7 @@
 #include "pop_ball.h"
 
 static int INC_PONTOS[] = {3, 4, 5, 6, 7, 8, 9};
+static int primeiraVez = 1;
 
 /*****************************************************************************************/
 
@@ -126,10 +127,6 @@ void verificar_eventos_mouse(JHI_MouseSt *mouse, int largura_janela)
 					printf("Pontos: %d\n", get_pontuacao());
 					jhi_play_effect(&explosion, 0);
 
-					if (get_pontuacao() == 200) {
-						jhi_stop_music();
-						jhi_play_music(&psi, -1);
-					}
 			    }
 		    }
 		}
@@ -146,6 +143,14 @@ void verificar_level_up()
 			game_level += 5;
 			vel_incremento += 2;
 			level_up += 500;
+
+			if (primeiraVez) {
+				jhi_stop_music();
+				jhi_replay_music(&psi, -1);
+				primeiraVez = 0;
+			}
+
+
 		}
 	}
 }
@@ -161,7 +166,7 @@ void verificar_game_over(int altura_janela)
 		if((bolas_caindo[i].pontos.y + RAIO_BOLA) > altura_janela) {
 			game_over = 1;
 			jhi_stop_music();
-			jhi_play_music(&normal, -1);
+			jhi_replay_music(&normal, -1);
 			break;
 		}
 	}

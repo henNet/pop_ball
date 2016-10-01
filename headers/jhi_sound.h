@@ -22,6 +22,7 @@
  */
 typedef struct {
 	Mix_Music *mix_music; /**< SDL structure of Music.*/
+	char filename[200];
 }JHI_Music;
 
 /**
@@ -44,6 +45,13 @@ void jhi_load_music(JHI_Music *music, const char *filename);
  * \param loop				Number of times that music will played. -1, it's infinite
  */
 void jhi_play_music(JHI_Music *music, int loop);
+
+/**
+ * \brief Replay the music in the background
+ * \param music	Structure of music to replay
+ * \param Number of times that music will played. -1, it's infinite
+ */
+void jhi_replay_music(JHI_Music *music, int loop); 
 
 /**
  * \brief Stop the current music
