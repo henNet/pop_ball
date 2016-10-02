@@ -1,7 +1,20 @@
 #include "pop_ball.h"
 
 static int INC_PONTOS[] = {3, 4, 5, 6, 7, 8, 9};
-static int primeiraVez = 1;
+
+
+/*****************************************************************************************/
+
+void inicialiar_jogo()
+{
+    set_random_seed();
+    set_game_level(5);
+    set_pontuacao(0);
+    level_up = 200;
+    game_over = 0;
+    init_bolas(LARGURA, ALTURA);
+    vel_incremento = 2;
+}
 
 /*****************************************************************************************/
 
@@ -9,7 +22,7 @@ void init_bolas(int faixa_x, int faixa_y)
 {
     int i;
     
-    for(i = 0; i < game_level; i++)
+    for(i = 0; i < MAX_GAME_LEVEL; i++)
     {
     	bolas_caindo[i].id_cor_bolas = rand() % 7; /* 7 é a quantidade de cores da lib */
 		bolas_caindo[i].pontos.x = rand() % faixa_x;
@@ -144,12 +157,8 @@ void verificar_level_up()
 			vel_incremento += 2;
 			level_up += 500;
 
-			if (primeiraVez) {
-				jhi_stop_music();
-				jhi_replay_music(&psi, -1);
-				primeiraVez = 0;
-			}
-
+			jhi_stop_music();
+			jhi_replay_music(&psi, -1);
 
 		}
 	}
@@ -183,8 +192,8 @@ void desenhar_pontuacao(JHI_Text *texto, JHI_Font *fonte, int text_pos_x, int te
 	jhi_set_text(fonte, texto, ORANGE, pontos_string);
 
 	/* desenha o texto em posição */
-	texto->pos.x = 250;
-	texto->pos.y = 500;
+	texto->pos.x = text_pos_x;
+	texto->pos.y = text_pos_y;
 	jhi_draw_text(texto, texto->pos);
 }
 

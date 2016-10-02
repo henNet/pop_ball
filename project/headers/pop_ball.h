@@ -19,6 +19,8 @@
 #define RAIO_BOLA 50
 #define PONTOS 10
 #define MAX_GAME_LEVEL 20
+#define LARGURA 800
+#define ALTURA 600
 
 
 
@@ -40,6 +42,7 @@ JHI_Image cara_bola[7];
 
 
 /* Funções do Jogo */
+void inicialiar_jogo();
 void init_bolas(int faixa_x, int faixa_y);
 void set_game_level(int level);
 void set_pontuacao(int pontos);
