@@ -71,7 +71,12 @@ int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
 	JHI_Font font_text, font_button;
 	JHI_Text pop, ball;
 
-	jhi_load_font(&font_text, "../../fonts/Chewy.ttf", 50);
+	JHI_Font font_borda;
+	JHI_Text pop_borda, ball_borda;
+
+	//jhi_load_font(&font_text, "../../fonts/Chewy.ttf", 50);
+	jhi_load_font(&font_text, "../../fonts/ChalkItUp.ttf", 100);
+	jhi_load_font(&font_borda, "../../fonts/ChalkItUp.ttf", 105);
 	jhi_load_font(&font_button, FONT_PATH, 20);
 	jhi_load_image_with_transparent_color(&menu_img, "../images/balao.png", BLACK);
 	jhi_load_image_with_transparent_color(&menu_img2, "../images/balao.png", BLACK);
@@ -82,20 +87,32 @@ int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
 	jhi_init_text(&pop);
 	jhi_init_text(&ball);
 
-	pop.pos.x = 200;
-	pop.pos.y = 100;
+	jhi_init_text(&pop_borda);
+	jhi_init_text(&ball_borda);
+
+	pop.pos.x = 190;
+	pop.pos.y = 220;
+
+	pop_borda.pos.x = 190;
+	pop_borda.pos.y = 219;
 
 	jhi_set_text(&font_text, &pop, RED, "POP");
 	jhi_set_text(&font_text, &ball, BLUE, "BALL");
 
+	jhi_set_text(&font_borda, &pop_borda, BLACK, "POP");
+	jhi_set_text(&font_borda, &ball_borda, BLACK, "BALL");
+
 	ball.pos.x = 420;
 	ball.pos.y = 250;
 
-	menu_img.pos.x = 400;
-	menu_img.pos.y = 30;
+	ball_borda.pos.x = 418;
+	ball_borda.pos.y = 250;
 
-	menu_img2.pos.x = 100;
-	menu_img2.pos.y = 200;
+	menu_img.pos.x = 400;
+	menu_img.pos.y = 60;
+
+	menu_img2.pos.x = 140;
+	menu_img2.pos.y = 30;
 
 	init_button(&vet_buttons[0], &font_button, "Iniciar Jogo", BUTTON_TYPE_1);
 	init_button(&vet_buttons[1], &font_button, "Sair do Jogo", BUTTON_TYPE_1);
@@ -111,6 +128,9 @@ int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
     	jhi_draw_image(background, background->pos);
     	draw_button(&vet_buttons[0], jhi_get_point(jhi_get_central_pos(LARGURA, ALTURA, 250, 50).x, 400));
     	draw_button(&vet_buttons[1], jhi_get_point(jhi_get_central_pos(LARGURA, ALTURA, 250, 50).x, 500));
+
+    	jhi_draw_text(&pop_borda, pop_borda.pos);
+    	jhi_draw_text(&ball_borda, ball_borda.pos);
 
     	jhi_draw_text(&pop, pop.pos);
     	jhi_draw_text(&ball, ball.pos);
@@ -130,9 +150,12 @@ int game_menu_screen(JHI_Image *background, JHI_MouseSt *mouse)
     }
 
     jhi_free_font(&font_text);
+    jhi_free_font(&font_borda);
     jhi_free_font(&font_button);
     jhi_free_text(&pop);
     jhi_free_text(&ball);
+    jhi_free_text(&pop_borda);
+    jhi_free_text(&ball_borda);
     jhi_free_image(&menu_img);
     jhi_free_image(&menu_img2);
     free_button(&vet_buttons[0]);
